@@ -29,8 +29,7 @@
 <body>
   
   <div class="borders container text-center"> <!--Title-->
-    <h1 id="title">Reddit with Limits</h1>
-    <h4>For those of us with no self-control</h4>
+    <h1 id="title">Twitch with Limits</h1>
   </div>
 
   <div class="container"> 
@@ -48,6 +47,40 @@
     <p>Created by Donald with Bootstrap</p>
   </div>
     <script>
+      /* First get user login name 
+         Using that name, get the streams they are following
+      */
+      function createCORSRequest(method, url) /*Code from https://www.html5rocks.com/en/tutorials/cors/ */
+      {
+        var xhr = new XMLHttpRequest();
+
+        if("withCredentias" in xhr) 
+        {  
+          xhr.open(method,url,true);
+        }
+        else if(typeof XDomainRequest != "undefined")
+        {
+          xhr = new XDomainRequest();
+          xhr.open(method, url);
+        }
+        else 
+        {
+          xhr = null;
+        }
+        return xhr;
+      }
+      function CORSrequest()
+      {
+        var url = 'https://api.twitch.tv/helix/users?login=Kobark';
+        var xhr = createCORSRequest('GET',url);      
+        if(!xhr)
+        {
+          alert('CORS NOT SUPPORTED');
+          return;
+        }
+      }
+      CORSrequest();
+      
 </script>
 
 </body>
