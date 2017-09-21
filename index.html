@@ -48,6 +48,25 @@
     <p>Created by Donald with Bootstrap</p>
   </div>
     <script>
+      function testApi()
+      {
+        var testVar;
+        $.ajax({
+          url: "https://api.twitch.tv/helix/users/follows?from_id=42221731",
+          dataType: 'json',
+          headers: {
+            'Client-ID': "wi16r9f9rqnrnl67iicuxpvcrakgj2"
+          },
+          success: function(channel)
+          {
+            console.log(channel);
+            testVar = channel;
+          },
+          
+          
+        });
+      }
+      testApi();
 </script>
 
 </body>
