@@ -38,7 +38,7 @@
       <div class="col-xs-12 col-md-3 borders"> <!-- Subreddit list -->
         <p>Streamers</p>
         <div id="streamers">
-          
+
         </div>
       </div>
       <div class="col-xs-12 col-md-9 borders"> <!-- Links within the subreddit -->
@@ -93,14 +93,14 @@
             'Client-ID': "wi16r9f9rqnrnl67iicuxpvcrakgj2"
           },
         });
-        
+      
         for(let i = 0; i < streams.data.length; i++)
         {
           var url= "https://api.twitch.tv/helix/users?id=";
           url += streams.data[i].to_id;
-          var stream = $.getJSON(url, function(data)
+          $.getJSON(url, function(stream)
           {
-            
+            document.getElementById("streamers").innerHTML += stream.data[0].display_name + "<br> <h6>" + stream.data[0].description + "</h6>";
           });
         }
         
