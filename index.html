@@ -50,7 +50,7 @@
     <script>
       function testApi()
       {
-        var testVar;
+        var testVar =
         $.ajax({
           url: "https://api.twitch.tv/helix/users?login=kobark",
           dataType: 'json',
@@ -59,14 +59,16 @@
           },
           success: function(channel)
           {
-            console.log(channel);
-            testVar = channel;
-          },
-          
-          
+            return(channel);
+          },          
         });
+        return testVar;
       }
-      testApi();
+      function anotherTestApi(magic){
+        console.log(magic.data[0].id);
+      }
+      var magic = testApi();
+      magic.then(result => anotherTestApi(result));
 </script>
 
 </body>
