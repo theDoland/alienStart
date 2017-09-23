@@ -37,11 +37,14 @@
     <div class="row">
       <div class="col-xs-12 col-md-3 borders"> <!-- Subreddit list -->
         <p>Streamers</p>
+        <div id="streamers">
+          
+        </div>
       </div>
       <div class="col-xs-12 col-md-9 borders"> <!-- Links within the subreddit -->
         <p>Video Feed</p>
-        <iframe src="https://player.twitch.tv/?channel=BobRoss&muted=true" height="500" width="845" frameborder="0" scrolling="no" allowfullscreen="true">
-        </iframe>
+       <!-- <iframe src="https://player.twitch.tv/?channel=BobRoss&muted=true" height="500" width="845" frameborder="0" scrolling="no" allowfullscreen="true">
+        </iframe> -->
 
       </div>
     </div>
@@ -53,23 +56,20 @@
     <script>
       function testApi()
       {
-        var testVar =
-        $.ajax({
+        return $.ajax({
           url: "https://api.twitch.tv/helix/users?login=kobark",
           dataType: 'json',
           headers: {
             'Client-ID': "wi16r9f9rqnrnl67iicuxpvcrakgj2"
           },
-          success: function(channel)
+          success: function(channel) // should also include error function
           {
-            return(channel);
           },          
         });
-        return testVar;
       }
       function anotherTestApi(magic){
         var link = 'https://api.twitch.tv/helix/users/follows?from_id=' + magic.data[0].id;
-        $.ajax({
+        return $.ajax({
           url: link,
           dataType: 'json',
           headers: {
@@ -78,11 +78,35 @@
           success: function(follows)
           {
             console.log(follows);
+            var followed = follows.data;
+            for(let i = 0; i < follows.data.length; i++)
+            {
+              console.log(followed[i].to_id);
+            }
           },
         });
       }
+      function grabStreams(streams)
+      {
+        $.ajaxSetup({
+          headers: {
+            'Client-ID': "wi16r9f9rqnrnl67iicuxpvcrakgj2"
+          },
+        });
+        
+        for(let i = 0; i < streams.data.length; i++)
+        {
+          var url= "https://api.twitch.tv/helix/users?id=";
+          url += streams.data[i].to_id;
+          var stream = $.getJSON(url, function(data)
+          {
+            
+          });
+        }
+        
+      }
       var magic = testApi();
-      magic.then(result => anotherTestApi(result));
+      magic.then(result => anotherTestApi(result).then(channels => grabStreams(channels)));
 </script>
 
 </body>
