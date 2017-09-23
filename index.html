@@ -40,6 +40,9 @@
       </div>
       <div class="col-xs-12 col-md-9 borders"> <!-- Links within the subreddit -->
         <p>Video Feed</p>
+        <iframe src="http://player.twitch.tv/?channel=day9tv&muted=true" height="500" width="845" frameborder="0" scrolling="no" allowfullscreen="true">
+        </iframe>
+
       </div>
     </div>
   </div>
@@ -65,7 +68,18 @@
         return testVar;
       }
       function anotherTestApi(magic){
-        console.log(magic.data[0].id);
+        var link = 'https://api.twitch.tv/helix/users/follows?from_id=' + magic.data[0].id;
+        $.ajax({
+          url: link,
+          dataType: 'json',
+          headers: {
+            'Client-ID': "wi16r9f9rqnrnl67iicuxpvcrakgj2"
+          },
+          success: function(follows)
+          {
+            console.log(follows);
+          },
+        });
       }
       var magic = testApi();
       magic.then(result => anotherTestApi(result));
