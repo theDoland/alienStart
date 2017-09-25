@@ -13,6 +13,11 @@
     .borders {
       border: 1px solid black;
     }
+    .profileImg {
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+    }
     #endCred {
       position: fixed;
       bottom: 0;
@@ -36,16 +41,14 @@
   <div class="container"> 
     <div class="row">
       <div class="col-xs-12 col-md-3 borders"> <!-- Subreddit list -->
-        <p>Streamers</p>
+        <h4>Streamers</h4>
         <div id="streamers">
 
         </div>
       </div>
       <div class="col-xs-12 col-md-9 borders"> <!-- Links within the subreddit -->
-        <p>Video Feed</p>
-       <!-- <iframe src="https://player.twitch.tv/?channel=BobRoss&muted=true" height="500" width="845" frameborder="0" scrolling="no" allowfullscreen="true">
-        </iframe> -->
-
+        <h4>Video Feed</h4>
+         <div id="vidFeed"></div>
       </div>
     </div>
   </div>
@@ -77,36 +80,50 @@
           },
           success: function(follows)
           {
-            console.log(follows);
-            var followed = follows.data;
-            for(let i = 0; i < follows.data.length; i++)
-            {
-              console.log(followed[i].to_id);
-            }
           },
         });
       }
-      function grabStreams(streams)
+      function setupStreams(streamArr)
       {
-        $.ajaxSetup({
-          headers: {
-            'Client-ID': "wi16r9f9rqnrnl67iicuxpvcrakgj2"
-          },
-        });
-      
-        for(let i = 0; i < streams.data.length; i++)
-        {
-          var url= "https://api.twitch.tv/helix/users?id=";
-          url += streams.data[i].to_id;
-          $.getJSON(url, function(stream)
-          {
-            document.getElementById("streamers").innerHTML += stream.data[0].display_name + "<br> <h6>" + stream.data[0].description + "</h6>";
-          });
-        }
         
+        var orderArr = [];
+        for(let i = 0; i < streamArr.data.length; i++)
+        {
+          let url= "https://api.twitch.tv/helix/users?id=";
+          url += streamArr.data[i].to_id;
+          orderArr.push(
+            $.ajax({
+            url: url,
+            dataType: 'json',
+            headers: {
+              'Client-ID': "wi16r9f9rqnrnl67iicuxpvcrakgj2"
+            },
+            success: function(data)
+            {
+              return data;
+            },
+          }));
+          /*document.getElementById("streamers").innerHTMl += streamArr[i].data[0].display_name + "<br>" + streamArr[i].data[0].description;
+          if(i = 0)
+          {
+            document.getElementById("vidFeed").innerHTML =  "<iframe src=\"https://player.twitch.tv/?channel=" + streamArr[i].data[0].display_name + "&muted=true\" height=\"500\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
+          } */
+        }
+        return Promise.all(orderArr).then(function()
+        {
+          return(orderArr);
+        });
+      }
+      function test(streams)
+      {
+        console.log(streams[0].responseJSON.data[0].login);
       }
       var magic = testApi();
-      magic.then(result => anotherTestApi(result).then(channels => grabStreams(channels)));
+      magic.then(result => anotherTestApi(result)
+           .then(channels => setupStreams(channels)
+           .then(streams => test(streams)
+           )));
+
 </script>
 
 </body>
