@@ -103,25 +103,33 @@
               return data;
             },
           }));
-          /*document.getElementById("streamers").innerHTMl += streamArr[i].data[0].display_name + "<br>" + streamArr[i].data[0].description;
-          if(i = 0)
-          {
-            document.getElementById("vidFeed").innerHTML =  "<iframe src=\"https://player.twitch.tv/?channel=" + streamArr[i].data[0].display_name + "&muted=true\" height=\"500\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
-          } */
         }
         return Promise.all(orderArr).then(function()
         {
           return(orderArr);
         });
       }
-      function test(streams)
+      function displayStreams(streams)
       {
-        console.log(streams[0].responseJSON.data[0].login);
+        var currStream;
+        console.log(streams.length);
+        for(let i = 0; i < streams.length; i++)
+        {
+          
+          currStream = streams[i].responseJSON.data[0];
+          document.getElementById("streamers").innerHTML += "<img class=\"profileImg\" src=\"" + currStream.profile_image_url + "\"</img>" + currStream.display_name + "<br>" + currStream.description + "<br>";
+          console.log(i);
+          if(i == 0)
+          {
+            document.getElementById("vidFeed").innerHTML = "<iframe src=\"https://player.twitch.tv/?channel=" + currStream.display_name + "&muted=true\" height=\"500\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
+          }
+          
+        }
       }
       var magic = testApi();
       magic.then(result => anotherTestApi(result)
            .then(channels => setupStreams(channels)
-           .then(streams => test(streams)
+           .then(streams => displayStreams(streams)
            )));
 
 </script>
