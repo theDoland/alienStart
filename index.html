@@ -17,12 +17,19 @@
       border-radius: 50%;
       width: 25px;
       height: 25px;
+      margin-right: 7px;
     }
     #endCred {
       position: fixed;
       bottom: 0;
       left: 0;
-      right: 0; 
+      right: 0;
+      border-radius: 5px;
+    }
+    #streamers {
+      overflow: auto; /* https://stackoverflow.com/questions/9537838/div-height-100-and-expands-to-fit-content/42034296#42034296 */
+      display: block;
+      max-height: 500px;
     }
     #title {
       font-family: "Open Sans";
@@ -53,11 +60,11 @@
     </div>
   </div>
 
-  <div class="container text-center borders" id="endCred"> <!-- Credits -->
+  <div class="container text-center" id="endCred"> <!-- Credits -->
     <p>Created by Donald with Bootstrap</p>
   </div>
     <script>
-      function testApi()
+      function getUserId()
       {
         return $.ajax({
           url: "https://api.twitch.tv/helix/users?login=kobark",
@@ -70,7 +77,7 @@
           },          
         });
       }
-      function anotherTestApi(magic){
+      function getUserFollows(magic){
         var link = 'https://api.twitch.tv/helix/users/follows?from_id=' + magic.data[0].id;
         return $.ajax({
           url: link,
@@ -112,22 +119,24 @@
       function displayStreams(streams)
       {
         var currStream;
+        var sliceDesc;
         console.log(streams.length);
         for(let i = 0; i < streams.length; i++)
         {
           
           currStream = streams[i].responseJSON.data[0];
-          document.getElementById("streamers").innerHTML += "<img class=\"profileImg\" src=\"" + currStream.profile_image_url + "\"</img>" + currStream.display_name + "<br>" + currStream.description + "<br>";
-          console.log(i);
+          document.getElementById("streamers").innerHTML += "<div class=\"borders\"> <img class=\"profileImg\" src=\"" + currStream.profile_image_url + "\"</img>" + currStream.display_name;
+          sliceDesc = currStream.description.slice(0,75) + "...";
+          document.getElementById("streamers").innerHTML += "<p>" + sliceDesc + "</p>" + "</div>";
           if(i == 0)
           {
-            document.getElementById("vidFeed").innerHTML = "<iframe src=\"https://player.twitch.tv/?channel=" + currStream.display_name + "&muted=true\" height=\"500\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
-          }
+            document.getElementById("vidFeed").innerHTML = "<iframe src=\"https://player.twitch.tv/?channel=" + currStream.display_name + "&muted=true\" height=\"495\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
+          } //not quite satisfied with the way the video size is being handled, probably need to scale with screen size
           
         }
       }
-      var magic = testApi();
-      magic.then(result => anotherTestApi(result)
+      var magic = getUserId();
+      magic.then(follows => getUserFollows(follows)
            .then(channels => setupStreams(channels)
            .then(streams => displayStreams(streams)
            )));
