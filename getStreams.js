@@ -60,7 +60,7 @@ function displayStreams(streams)
         {
           
           currStream = streams[i].responseJSON.data[0];
-		document.getElementById("streamers").innerHTML += "<div> <img class=\"profileImg\" src=\"" + currStream.profile_image_url + "\"</img>" + currStream.display_name;
+		document.getElementById("streamers").innerHTML += "<div id=\"substream\"> <img class=\"profileImg\" src=\"" + currStream.profile_image_url + "\"</img>" + currStream.display_name;
           sliceDesc = currStream.description.slice(0,75) + "...";
           document.getElementById("streamers").innerHTML += "<p>" + sliceDesc + "</p>" + "</div>";
           if(i == 0)
