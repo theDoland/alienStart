@@ -1,6 +1,7 @@
 /*jshint esversion:6 */
 /*jshint browser:true */
 /*global $, jquery */
+
 var linkStreams = [];
 
 function getUserId() {
@@ -71,7 +72,6 @@ function displayStreams(streams) {
 function swapStream(streamName) {
   document.getElementById("vidFeed").innerHTML = "<iframe src=\"https://player.twitch.tv/?channel=" + streamName + "&muted=true\" height=\"495\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
 }
-
 
 var magic = getUserId();
 magic.then(follows => getUserFollows(follows)

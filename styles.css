@@ -1,36 +1,32 @@
 body {
-    background-image: url("https://www.publicdomainpictures.net/pictures/170000/velka/clouds-1462816160SPE.jpg");
+  background-image: url("https://www.publicdomainpictures.net/pictures/170000/velka/clouds-1462816160SPE.jpg");
 }
 
 .borders {
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
 .profileImg {
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    margin-right: 7px;
-}
-
-#endCred {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border-radius: 5px;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  margin-right: 7px;
 }
 
 #streamers {
-    overflow: auto;
-    /* https://stackoverflow.com/questions/9537838/div-height-100-and-expands-to-fit-content/42034296#42034296 */
-    display: block;
-    max-height: 500px;
-    opacity: 0.7;
+  overflow: auto;
+  /* https://stackoverflow.com/questions/9537838/div-height-100-and-expands-to-fit-content/42034296#42034296 */
+  display: block; 
+  opacity: 0.7;
+  max-height: 475px;
 }
 
 #title {
-    font-family: "Open Sans";
-    color: white;
-    text-shadow: 2px 2px black;
+  font-family: "Open Sans";
+  color: white;
+  text-shadow: 2px 2px black;
+}
+
+#vidFeed {
+  margin: 10px 0px 5px 0px;
 }
