@@ -1,3 +1,7 @@
+/*jshint esversion:6 */
+/*jshint browser:true */
+/*global $, jquery */
+
 var linkStreams = [];
 
 function getUserId() {
