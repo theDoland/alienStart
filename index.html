@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">        
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link type="text/css" rel="stylesheet" href="styles.css"/> <!-- Css Here! -->
-  
+  <link type="text/css" rel="stylesheet" href="styles.css" />
+  <!-- Css Here! -->
+
 </head>
+
 <body>
-  
-  <div class="container text-center"> <!--Title-->
+
+  <div class="container text-center">
+    <!--Title-->
     <h1 id="title">Twitch with Limits</h1>
     <h4>A Web Script by Donald Nguyen</h4>
   </div>
 
-  <div class="container"> 
+  <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-md-3 borders"> <!-- Streamer list (make it clickable) -->
+      <div class="col-xs-12 col-md-3 borders">
+        <!-- Streamer list (make it clickable) -->
         <h4>Streamers</h4>
         <div id="streamers">
 
         </div>
       </div>
-      <div class="col-xs-12 col-md-9 borders"> <!-- Links within the subreddit -->
+      <div class="col-xs-12 col-md-9 borders">
+        <!-- Links within the subreddit -->
         <h4>Video Feed</h4>
-         <div id="vidFeed"></div>
+        <div id="vidFeed"></div>
       </div>
     </div>
   </div>
 
-  <div class="container text-center" id="endCred"> <!-- Credits -->
+  <div class="container text-center" id="endCred">
+    <!-- Credits -->
     <p>Created by Donald with Bootstrap</p>
   </div>
-    <script type="text/javascript" src="getStreams.js"></script>
+  <script type="text/javascript" src="getStreams.js"></script>
 
 </body>
+
 </html>
