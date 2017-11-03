@@ -2,8 +2,19 @@
 /*jshint browser:true */
 /*global $, jquery */
 
-var linkStreams = [];
+// display stream names and descriptions
+function insertStream(stream, sliceDesc) {
+  document.getElementById("streamers").innerHTML += "<div> <button value=\"" + stream.display_name + "\" onclick=\"swapStream(this.value)\"> <img class=\"profileImg\" src=\"" + stream.profile_image_url + "\"</img>" + stream.display_name + "</button>";
+  sliceDesc = stream.description.slice(0, 75) + "...";
+  document.getElementById("streamers").innerHTML += "<p>" + sliceDesc + "</p> </div>";
+}
 
+// Onclick, change the stream playing
+function displayStream(streamName) {
+  document.getElementById("vidFeed").innerHTML = "<iframe src=\"https://player.twitch.tv/?channel=" + streamName + "&muted=true\" height=\"495\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
+}
+
+// Grabs the user's (me) ID to work on  
 function getUserId() {
   "use strict";
   return $.ajax({
@@ -16,9 +27,10 @@ function getUserId() {
   });
 }
 
-function getUserFollows(magic) {
+// Grabs users' followed channels
+function getUserFollows(myId) {
   "use strict";
-  var link = 'https://api.twitch.tv/helix/users/follows?from_id=' + magic.data[0].id;
+  var link = 'https://api.twitch.tv/helix/users/follows?from_id=' + myId.data[0].id;
   return $.ajax({
     url: link,
     dataType: 'json',
@@ -29,6 +41,7 @@ function getUserFollows(magic) {
   });
 }
 
+// Takes followed channels' ids and puts their data in array
 function setupStreams(streamArr) {
   "use strict";
   var orderArr = [];
@@ -52,28 +65,21 @@ function setupStreams(streamArr) {
   });
 }
 
+// Inserts the stream onto the page
 function displayStreams(streams) {
   var currStream;
   var sliceDesc;
   for (let i = 0; i < streams.length; i++) {
 
     currStream = streams[i].responseJSON.data[0];
-    document.getElementById("streamers").innerHTML += "<div> <button value=\"" + currStream.display_name + "\" onclick=\"swapStream(this.value)\"> <img class=\"profileImg\" src=\"" + currStream.profile_image_url + "\"</img>" + currStream.display_name + "</button>";
-    sliceDesc = currStream.description.slice(0, 75) + "...";
-    document.getElementById("streamers").innerHTML += "<p>" + sliceDesc + "</p> </div>";
-    if (i === 0) {
-      document.getElementById("vidFeed").innerHTML = "<iframe src=\"https://player.twitch.tv/?channel=" + currStream.display_name + "&muted=true\" height=\"495\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
-    } //not quite satisfied with the way the video size is being handled, probably need to scale with screen size
-    linkStreams.push(currStream.display_name);
+    insertStream(currStream, sliceDesc);
+
+    if (i === 0) // TODO: scale video size with screen size
+      displayStream(currStream.display_name);
   }
 }
 
-// Onclick, change the stream playing
-function swapStream(streamName) {
-  document.getElementById("vidFeed").innerHTML = "<iframe src=\"https://player.twitch.tv/?channel=" + streamName + "&muted=true\" height=\"495\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
-}
-
-var magic = getUserId();
-magic.then(follows => getUserFollows(follows)
+var myId = getUserId();
+myId.then(follows => getUserFollows(follows)
   .then(channels => setupStreams(channels)
     .then(streams => displayStreams(streams))));
