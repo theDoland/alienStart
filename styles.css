@@ -29,4 +29,14 @@ body {
 
 #vidFeed {
   margin: 10px 0px 5px 0px;
+  height: 500px;
+
+}
+
+#vidFeed iframe {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
 }

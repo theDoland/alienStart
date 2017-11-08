@@ -1,17 +1,18 @@
 /*jshint esversion:6 */
 /*jshint browser:true */
+/*jshint devel:true */
 /*global $, jquery */
 
 // display stream names and descriptions
 function insertStream(stream, sliceDesc) {
-  document.getElementById("streamers").innerHTML += "<div> <button value=\"" + stream.display_name + "\" onclick=\"swapStream(this.value)\"> <img class=\"profileImg\" src=\"" + stream.profile_image_url + "\"</img>" + stream.display_name + "</button>";
+  document.getElementById("streamers").innerHTML += "<div> <button value=\"" + stream.display_name + "\" onclick=\"displayStream(this.value)\"> <img class=\"profileImg\" src=\"" + stream.profile_image_url + "\"</img>" + stream.display_name + "</button>";
   sliceDesc = stream.description.slice(0, 75) + "...";
   document.getElementById("streamers").innerHTML += "<p>" + sliceDesc + "</p> </div>";
 }
 
 // Onclick, change the stream playing
 function displayStream(streamName) {
-  document.getElementById("vidFeed").innerHTML = "<iframe src=\"https://player.twitch.tv/?channel=" + streamName + "&muted=true\" height=\"495\" width=\"845\" frameborder=\"0\" scrolling=\"no\" allowfullscreen=\"true\"> </iframe>";
+  document.getElementById("vidFeed").innerHTML = "<iframe id=\"frame\" src=\"https://player.twitch.tv/?channel=" + streamName + "&muted=true\" frameborder=\"0\" scrolling=\"yes\" allowfullscreen=\"true\"> </iframe>";
 }
 
 // Grabs the user's (me) ID to work on  
@@ -74,7 +75,7 @@ function displayStreams(streams) {
     currStream = streams[i].responseJSON.data[0];
     insertStream(currStream, sliceDesc);
 
-    if (i === 0) // TODO: scale video size with screen size
+    if (i === 0)
       displayStream(currStream.display_name);
   }
 }
