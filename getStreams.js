@@ -5,14 +5,15 @@
 
 // display stream names and descriptions
 function insertStream(stream, sliceDesc) {
-  document.getElementById("streamers").innerHTML += "<div> <button value=\"" + stream.display_name + "\" onclick=\"displayStream(this.value)\"> <img class=\"profileImg\" src=\"" + stream.profile_image_url + "\"</img>" + stream.display_name + "</button>";
+  document.getElementById("streamers").innerHTML += "<div class=\"streamers\"> <button value=\"" + stream.display_name + "\" onclick=\"displayStream(this.value)\"> <img class=\"profileImg\" src=\"" + stream.profile_image_url + "\"</img>" + stream.display_name + "</button>";
   sliceDesc = stream.description.slice(0, 75) + "...";
-  document.getElementById("streamers").innerHTML += "<p>" + sliceDesc + "</p> </div>";
+  document.getElementById("streamers").innerHTML += "<p class=\"streamers\">" + sliceDesc + "</p> </div>";
 }
 
 // Onclick, change the stream playing
 function displayStream(streamName) {
-  document.getElementById("vidFeed").innerHTML = "<iframe id=\"frame\" src=\"https://player.twitch.tv/?channel=" + streamName + "&muted=true\" frameborder=\"0\" scrolling=\"yes\" allowfullscreen=\"true\"> </iframe>";
+  document.getElementById("chatbtn").value = streamName;
+  document.getElementById("vidFeed").innerHTML = "<iframe value=\"" + streamName + "\" id=\"frame\" src=\"https://player.twitch.tv/?channel=" + streamName + "&muted=true\" frameborder=\"0\" scrolling=\"yes\" allowfullscreen=\"true\"> </iframe>";
 }
 
 // Grabs the user's (me) ID to work on  
@@ -78,6 +79,16 @@ function displayStreams(streams) {
     if (i === 0)
       displayStream(currStream.display_name);
   }
+  document.getElementById("streamList").setAttribute("style","background-color: #551A8B");
+}
+
+function displayChat(streamName) {
+  $("#streamers").hide();
+
+  document.getElementById("chat").innerHTML = "<iframe frameborder=\"0\" scrolling=\"no\" id=\"chat_embed\" src=\"http://www.twitch.tv/" + streamName + "/chat\" height=\"0\" width=\"0\"> </iframe>";
+  $("#chat_embed").css("height", $("#vidFeed").height());
+  $("#chat_embed").css("width", $("#optList").width());
+  
 }
 
 var myId = getUserId();

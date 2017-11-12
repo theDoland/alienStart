@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!-- login functionality for multiple users -->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,17 +16,24 @@
 <!-- work on responsive design -->
   <div class="container text-center">
     <!--Title-->
-    <h1 id="title">Twitch with Limits</h1>
+    <h1 id="title">myTwitch</h1>
     <h4>A Web Script by Donald Nguyen</h4>
   </div>
 
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-md-3 borders">
-        <!-- Streamer list -->
-        <h4>Streamers</h4>
+        <!-- Streamer list (also want to add chat option) -->
+        <div id="optList">
+          <button class="options" id="streamOpt">Streamers</button> | <button class="options" id="chatbtn" onclick="displayChat(this.value)"> Chat</button> | <button class="options"> Browse</button>
+        </div>
+        <div id="opts">
         <div id="streamers">
 
+        </div>
+        <div id="chat">
+        
+        </div>
         </div>
       </div>
       <div class="col-xs-12 col-md-9 borders" id="vidSize">
