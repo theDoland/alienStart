@@ -85,7 +85,7 @@ function displayStreams(streams) {
 
 function displayChat(streamName) {
     $("#chat").hide();
-    document.getElementById("chat").innerHTML = "<iframe frameborder=\"0\" scrolling=\"no\"   id=\"chat_embed\" src=\"http://www.twitch.tv/" + streamName + "/chat\"> </iframe>";
+    document.getElementById("chat").innerHTML = "<iframe frameborder=\"0\" scrolling=\"no\"   id=\"chat_embed\" src=\"https://www.twitch.tv/" + streamName + "/chat\"> </iframe>";
     $("#chat_embed").css("height", $("#vidFeed").height() - 43);
     $("#chat_embed").css("width", $("#optList").width());
     
