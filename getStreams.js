@@ -3,6 +3,7 @@
 /*jshint devel:true */
 /*global $, jquery */
 
+// I don't know why, but the chat doesn't work the first time
 // display stream names and descriptions
 function insertStream(stream, sliceDesc) {
     document.getElementById("streamers").innerHTML += "<div class=\"streamers\"> <button value=\"" + stream.display_name + "\" onclick=\"displayStream(this.value)\"> <img class=\"profileImg\" src=\"" + stream.profile_image_url + "\"</img>" + stream.display_name + "</button>";
@@ -98,17 +99,17 @@ function reStream() {
 }
 if (matchMedia) {
     const mq = window.matchMedia("(min-width: 1200px)");
-    mq.addListener(changedWidth);
-    changedWidth(mq);
+    //mq.addListener(changedWidth);
+    //changedWidth(mq);
 }
 
-function changedWidth(mq) {
+/*function changedWidth(mq) {
     if (mq.matches) {
 
     } else {
         document.getElementById("bars").innerHTML = "<button class=\"options\" id=\"streamOpt\" onclick=\"reStream()\">Streamers</button> <button> <img class=\"dropdown\" src=\"https://image.flaticon.com/icons/svg/60/60995.svg\"/> </button>";
     }
-}
+}*/
 
 
 var myId = getUserId();

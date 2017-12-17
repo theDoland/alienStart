@@ -2,7 +2,7 @@
 <html>
 <!-- login functionality for multiple users -->
 <!-- maybe stylistically have a loading page then fill the screen with the sidebar/video -->
-<!-- Browse will have three active (?buttons?) for based on channel/game/streamers -->
+<!-- Browse will have three active (?buttons?) for based on channel/game/streamers (LAST PRIORITY)-->
 <!-- Finally work on dynamic resizing -->
 <head>
   <meta charset="utf-8">
@@ -25,6 +25,10 @@
 
   <div class="container">
     <div class="row">
+      <div class="col-xs-12 col-md-9 borders" id="vidSize">
+        <!-- Video feed -->
+        <div id="vidFeed"></div>
+      </div>
       <div class="col-xs-12 col-md-3 borders">
         <!-- Streamer list (also want to add chat option) -->
         <div id="optList">
@@ -42,10 +46,7 @@
         </div>
         </div>
       </div>
-      <div class="col-xs-12 col-md-9 borders" id="vidSize">
-        <!-- Video feed -->
-        <div id="vidFeed"></div>
-      </div>
+      
     </div>
   </div>
 
