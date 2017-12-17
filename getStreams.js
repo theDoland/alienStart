@@ -19,7 +19,6 @@ function displayStream(streamName) {
 
 // Grabs the user's (me) ID to work on  
 function getUserId() {
-    "use strict";
     return $.ajax({
         url: "https://api.twitch.tv/helix/users?login=kobark",
         dataType: 'json',
@@ -32,7 +31,6 @@ function getUserId() {
 
 // Grabs users' followed channels
 function getUserFollows(myId) {
-    "use strict";
     var link = 'https://api.twitch.tv/helix/users/follows?from_id=' + myId.data[0].id;
     return $.ajax({
         url: link,
@@ -46,7 +44,6 @@ function getUserFollows(myId) {
 
 // Takes followed channels' ids and puts their data in array
 function setupStreams(streamArr) {
-    "use strict";
     var orderArr = [];
     for (let i = 0; i < streamArr.data.length; i++) {
         let url = "https://api.twitch.tv/helix/users?id=";
